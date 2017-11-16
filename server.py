@@ -2,6 +2,7 @@ import os
 from pprint import pformat
 import requests
 from flask import Flask, request, render_template, session, redirect, jsonify, flash
+from werkzeug.serving import run_simple
 from jinja2 import StrictUndefined
 from eventbrite import Eventbrite
 
@@ -13,12 +14,12 @@ EB_API_KEY = os.environ["EB_API_KEY"]
 app = Flask(__name__)
 app.secret_key = 'ABCSECRETDEF'
 
-EVENTBRITE_URL = "https://www.eventbriteapi.com/v3/"
+EB_URL = "https://www.eventbriteapi.com/v3/"
 
 # raise errors if there are undefined variables in Jinja2
-app.jinja_env.undefined = StrictUndefined
+# app.jinja_env.undefined = StrictUndefined
 
-@app.route('/')
+@app.route("/")
 def home_page():
     """ identify user's location and display meditation events nearby """
 
@@ -37,15 +38,16 @@ def get_meditations():
 
 if __name__ == "__main__":
 
+    context=('cert.pem', 'key.pem')
     app.debug=True
     app.jinja_env.auto_reload=app.debug
-    app.run(host="0.0.0.0", port=5000, ssl_context=('cert.pem', 'key.pem'))
+    app.run(host="0.0.0.0", port=5000) #ssl_context='adhoc')
 
-    #command line to generate self-signed certificate:
+    # command line to generate self-signed certificate:
     # openssl req -x509 -newkey rsa:4096 -nodes -out cert.pem -keyout key.pem -days 365
     
     # Use the DebugToolbar
-    DebugToolbarExtension(app)
+    # DebugToolbarExtension(app)
 
 
 

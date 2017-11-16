@@ -7,7 +7,20 @@
 <p>your location: </p>
 </div>
 
+<div>
+<input type='text' name='zipcode' placeholder='your zipcode'>
+<input type='submit' value='show meditations near me'>
+</div>
+
+<div id='classes'>
+</div>
+
 <script>
+
+function showClasses(results) {
+    $('#classes').empty();
+
+}
 
 window.onload = function() {
     var startPos;
