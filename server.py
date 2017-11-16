@@ -39,7 +39,10 @@ if __name__ == "__main__":
 
     app.debug=True
     app.jinja_env.auto_reload=app.debug
-    app.run(host="0.0.0.0", port=5000, ssl_context='adhoc')
+    app.run(host="0.0.0.0", port=5000, ssl_context=('cert.pem', 'key.pem'))
+
+    #command line to generate self-signed certificate:
+    # openssl req -x509 -newkey rsa:4096 -nodes -out cert.pem -keyout key.pem -days 365
     
     # Use the DebugToolbar
     DebugToolbarExtension(app)
