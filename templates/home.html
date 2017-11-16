@@ -9,7 +9,7 @@
 
 <div>
 <input type='text' name='zipcode' placeholder='your zipcode'>
-<input type='submit' value='show meditations near me'>
+<input id='zipcode' type='submit' value='show meditations near me'>
 </div>
 
 <div id='classes'>
@@ -19,8 +19,14 @@
 
 function showClasses(results) {
     $('#classes').empty();
-
+    $('#habits-div').append(results);
 }
+
+function getClasses(evt) {
+    $.get('/classes.json', showClasses);
+}
+
+$('#zipcode').on('click', getClasses);
 
 window.onload = function() {
     var startPos;
@@ -29,6 +35,7 @@ window.onload = function() {
         document.getElementById('startLat').innerHTML = startPos.coords.lattitude;
         document.getElementById('startLon').innerHTML = startPos.coords.longitude;
         console.log(startPos);
+        $('#location').append(startPos)
     };
     navigator.geolocation.getCurrentPosition(geoSuccess);
 };

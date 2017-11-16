@@ -27,10 +27,12 @@ def home_page():
 
     return render_template("home.html")
 
-@app.route('/meditations.json')
-def get_meditations():
+@app.route('/classes.json')
+def get_classes():
     """ route for an ajax request to show meditation classes from eventbrite
     API"""
+
+    zipcode = request.args.get('zipcode')
 
     pass
 
