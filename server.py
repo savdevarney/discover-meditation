@@ -18,8 +18,17 @@ EVENTBRITE_URL = "https://www.eventbriteapi.com/v3/"
 app.jinja_env.undefined = StrictUndefined
 
 @app.route('/')
-def show_events():
+def home_page():
     """ identify user's location and display meditation events nearby """
+
+    # show
+
+@app.route('/meditations.json')
+def get_meditations():
+    """ route for an ajax request to show meditation classes from eventbrite
+    API"""
+
+
 
 if __name__ == "__main__":
 
