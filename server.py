@@ -2,11 +2,12 @@ import os
 from pprint import pformat
 import requests
 from flask import Flask, request, render_template, session, redirect, jsonify, flash
-from eventbrite import eventbrite
+from jinja2 import StrictUndefined
+from eventbrite import Eventbrite
 
-CLIENT_SECRET = os.environ["CLIENT_SECRET"]
-OAUTH_TOKEN = os.environ["OAUTH_TOKEN"]
-ANONYMOUS_OAUTH_TOKEN = os.environ["ANONYMOUS_OAUTH_TOKEN"]
+EB_CLIENT_SECRET = os.environ["EB_CLIENT_SECRET"]
+EB_OAUTH_TOKEN = os.environ["EB_OAUTH_TOKEN"]
+EB_ANONYMOUS_OAUTH_TOKEN = os.environ["EB_ANONYMOUS_OAUTH_TOKEN"]
 EB_API_KEY = os.environ["EB_API_KEY"]
 
 app = Flask(__name__)
@@ -23,10 +24,14 @@ def home_page():
 
     # show
 
+    return render_template("home.html")
+
 @app.route('/meditations.json')
 def get_meditations():
     """ route for an ajax request to show meditation classes from eventbrite
     API"""
+
+    pass
 
 
 
@@ -34,7 +39,7 @@ if __name__ == "__main__":
 
     app.debug=True
     app.jinja_env.auto_reload=app.debug
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=5000, ssl_context='adhoc')
     
     # Use the DebugToolbar
     DebugToolbarExtension(app)

@@ -1,4 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
 
+
+<script>
+
+window.onload = function() {
+    var startPos;
+    var geoSuccess = function(position) {
+        startPos = position;
+        document.getElementById('startLat').innerHTML = startPos.coords.lattitude;
+        document.getElementById('startLon').innerHTML = startPos.coords.longitude;
+        console.log(startPos);
+    };
+    navigator.geolocation.getCurrentPosition(geoSuccess);
+};
+
+
+</script>
+
 {% endblock %}
