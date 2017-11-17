@@ -11,7 +11,7 @@
 <form action='url'>
 <input type='text' name='location.address' placeholder='your address'>
 <input type='text' name='location.within' placeholder='search distance'>
-<input id='location' type='submit' value='show meditations near me'>
+<input id='location-btn' type='submit' value='show meditations near me'>
 </form>
 </div>
 
@@ -33,18 +33,18 @@ function showClasses(results) {
     console.log(firstResult);
     $('#classes').empty();
     $('#classes').append(firstResult); 
-}
+};
 
 function getClasses(event) {
     event.preventDefault();
     let str = $('form').serialize();
-    console.log(str)
+    console.log(str);
     let query = ebUrl + ebSearch + ebToken + q + sort_by + "&" + str;
     console.log(query);
     $.get(query, showClasses);
-}
+};
 
-$('#location').on('click', getClasses);
+$('#location-btn').on('click', getClasses);
 
 /* 
 window.onload = function() {
