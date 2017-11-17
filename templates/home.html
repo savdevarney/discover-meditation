@@ -8,8 +8,11 @@
 </div>
 
 <div>
-<input type='text' name='zipcode' placeholder='your zipcode'>
-<input id='zipcode' type='submit' value='show meditations near me'>
+<form action='url'>
+<input type='text' name='location.address' placeholder='your address'>
+<input type='text' name='location.within' placeholder='search distance'>
+<input id='location' type='submit' value='show meditations near me'>
+</form>
 </div>
 
 <div id='classes'>
@@ -17,30 +20,47 @@
 
 <script>
 
+let ebUrl = "https://www.eventbriteapi.com/v3"
+let ebSearch = "/events/search"
+let ebToken = "/?token=QH7DGFM5HFFYPBGZOCZO"
+let q = "&q=meditation"
+let sort_by = "&sort_by=best"
+
+
 function showClasses(results) {
+    console.log(results);
+    let firstResult = results['events'][0]['name']['text'];
+    console.log(firstResult);
     $('#classes').empty();
-    $('#habits-div').append(results);
+    $('#classes').append(firstResult); 
 }
 
-function getClasses(evt) {
-    $.get('/classes.json', showClasses);
+function getClasses(event) {
+    event.preventDefault();
+    let str = $('form').serialize();
+    console.log(str)
+    let query = ebUrl + ebSearch + ebToken + q + sort_by + "&" + str;
+    console.log(query);
+    $.get(query, showClasses);
 }
 
-$('#zipcode').on('click', getClasses);
+$('#location').on('click', getClasses);
 
+/* 
 window.onload = function() {
-    var startPos;
-    var geoSuccess = function(position) {
+    let startPos;
+    let geoSuccess = function(position) {
         startPos = position;
         document.getElementById('startLat').innerHTML = startPos.coords.lattitude;
         document.getElementById('startLon').innerHTML = startPos.coords.longitude;
         console.log(startPos);
-        $('#location').append(startPos)
     };
     navigator.geolocation.getCurrentPosition(geoSuccess);
 };
-
+*/
 
 </script>
 
 {% endblock %}
+
+   
