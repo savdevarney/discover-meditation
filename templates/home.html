@@ -1,21 +1,31 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>hello, welcome to discover-meditation</h1>
+<h1>Let's find meditation classes near you</h1>
 
-<div id='location'>
-<p>your location: </p>
+<div>
+<p>Enter Your Location: </p>
 </div>
 
 <div>
 <form action='url'>
-<input type='text' name='location.address' placeholder='your address'>
-<input type='text' name='location.within' placeholder='search distance'>
-<input id='location-btn' type='submit' value='show meditations near me'>
+    <input type='text' name='location.address' placeholder='your address'>
+    <select name='location.within'>
+        <option value='5mi'>5 miles</option>
+        <option value='10mi'>10 miles</option>
+        <option value='20mi'>20 miles</option>
+    </select>
+    <input id='location' type='submit' value='show meditations near me'>
 </form>
 </div>
 
+<br>
+<br>
+<br>
+
 <div id='classes'>
+<form action= url
+</form>
 </div>
 
 <script>
@@ -29,11 +39,22 @@ let sort_by = "&sort_by=best"
 
 function showClasses(results) {
     console.log(results);
-    let firstResult = results['events'][0]['name']['text'];
-    console.log(firstResult);
+    let events = results['events']; // an array of event objects
+    let meditations = events.map(function(event) {
+        let title = event['name']['text'];
+        let url = event['url'];
+        let dateTime = event['start']['local'];
+        return "<div class='class-tile'><a href='" + url + "'>" + " " + title + "</a></div>" 
+    });
+    console.log(meditations)
     $('#classes').empty();
-    $('#classes').append(firstResult); 
+    for (i = 0; i < meditations.length; i++) {
+        $('#classes').append(meditations[i]);
+    }
 };
+
+    //firstResult = results['events'][0]['name']['text'];
+    //console.log(firstResult); 
 
 function getClasses(event) {
     event.preventDefault();
@@ -44,7 +65,15 @@ function getClasses(event) {
     $.get(query, showClasses);
 };
 
-$('#location-btn').on('click', getClasses);
+$('#location').on('click', getClasses);
+
+function getAllClasses() {
+    let query = ebUrl + ebSearch + ebToken + q + sort_by;
+    console.log(query);
+    $.get(query, showClasses);
+}
+
+getAllClasses();
 
 /* 
 window.onload = function() {
