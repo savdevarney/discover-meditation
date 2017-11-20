@@ -44,7 +44,10 @@ function showClasses(results) {
         let title = event['name']['text'];
         let url = event['url'];
         let dateTime = event['start']['local'];
-        return "<div class='class-tile'><a href='" + url + "'>" + " " + title + "</a></div>" 
+        return `
+        <div class='class-tile'>
+        <a href='${url}'> ${title} </a></div>
+        `; 
     });
     console.log(meditations)
     $('#classes').empty();
@@ -52,9 +55,6 @@ function showClasses(results) {
         $('#classes').append(meditations[i]);
     }
 };
-
-    //firstResult = results['events'][0]['name']['text'];
-    //console.log(firstResult); 
 
 function getClasses(event) {
     event.preventDefault();
