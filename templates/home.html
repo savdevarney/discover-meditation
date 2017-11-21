@@ -23,21 +23,25 @@
 <br>
 <br>
 
-<div id='classes'>
-<form action= url
+<div id='classes' class='container'>
+<form>
 </form>
 </div>
 
 <script>
-let ebUrl = "https://www.eventbriteapi.com/v3"
-let ebSearch = "/events/search"
-let ebToken = "/?token=QH7DGFM5HFFYPBGZOCZO"
-let q = "&q=meditation"
-let sort_by = "&sort_by=best"
+const ebUrl = "https://www.eventbriteapi.com/v3";
+const ebSearch = "/events/search";
+const ebToken = "/?token=QH7DGFM5HFFYPBGZOCZO";
+const q = "&q=meditation";
+const sort_by = "&sort_by=best";
+let pageNumber = 1;
+let page = `&page=${pageNumber}`;
+let str;
+
 
 
 function showClasses(results) {
-    console.log(results);
+    //console.log(results);
     let events = results['events']; // an array of event objects
     let meditations = events.map(function(event) {
         let title = event['name']['text'];
@@ -49,28 +53,51 @@ function showClasses(results) {
         </div>
         `; 
     });
-    console.log(meditations)
-    $('#classes').empty();
+    //console.log(meditations)
+    //$('#classes').empty();
     for (i = 0; i < meditations.length; i++) {
         $('#classes').append(meditations[i]);
     }
 };
 
-function getClasses(event) {
-    event.preventDefault();
-    let str = $('form').serialize();
-    let query = ebUrl + ebSearch + ebToken + q + sort_by + "&" + str;
+function getClasses() {
+    console.log(str);
+    let query;
+    if(str){
+        query = ebUrl + ebSearch + ebToken + q + sort_by + page + "&" + str;
+    }else{
+        query = ebUrl + ebSearch + ebToken + q + sort_by + page;  
+   };
     $.get(query, showClasses);
 };
 
-$('#location').on('click', getClasses);
+function getLocation(event) {
+    event.preventDefault();
+    str = $('form').serialize();
+    getClasses();
+};
 
-function getAllClasses() {
-    let query = ebUrl + ebSearch + ebToken + q + sort_by;
-    $.get(query, showClasses);
-}
+$('#location').on('click', getLocation);
 
-getAllClasses();
+getClasses();
+
+// infinite scrolling and paginating
+
+console.log(`window.scrollTop is: ${($(window).scrollTop())}
+    window.height is: ${($(window).height())}
+    document.height is: ${($(document).height())}`);
+
+$(window).scroll(()=> {
+    if(($(window).scrollTop() + $(window).height()) === ($(document).height())){
+        pageNumber++;
+        getClasses();
+        console.log(`page has scrolled. 
+            Window.scrollTop is: ${($(window).scrollTop())} 
+            window.height is: ${($(window).height())}
+            document.height is: ${($(document).height())}`);
+        }
+});
+
 
 </script>
 
