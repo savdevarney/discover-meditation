@@ -46,7 +46,8 @@ function showClasses(results) {
         let dateTime = event['start']['local'];
         return `
         <div class='class-tile'>
-        <a href='${url}'> ${title} </a></div>
+            <a href='${url}'> ${title}</a>
+        </div>
         `; 
     });
     console.log(meditations)
@@ -59,9 +60,7 @@ function showClasses(results) {
 function getClasses(event) {
     event.preventDefault();
     let str = $('form').serialize();
-    console.log(str);
     let query = ebUrl + ebSearch + ebToken + q + sort_by + "&" + str;
-    console.log(query);
     $.get(query, showClasses);
 };
 
@@ -69,7 +68,6 @@ $('#location').on('click', getClasses);
 
 function getAllClasses() {
     let query = ebUrl + ebSearch + ebToken + q + sort_by;
-    console.log(query);
     $.get(query, showClasses);
 }
 
