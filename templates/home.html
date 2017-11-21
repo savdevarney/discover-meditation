@@ -20,8 +20,6 @@
 </div>
 
 <br>
-<br>
-<br>
 
 <div id='classes' class='container'>
 <form>
@@ -53,20 +51,19 @@ function showClasses(results) {
         </div>
         `; 
     });
-    //console.log(meditations)
-    //$('#classes').empty();
     for (i = 0; i < meditations.length; i++) {
         $('#classes').append(meditations[i]);
     }
 };
 
 function getClasses() {
-    console.log(str);
+    page = `&page=${pageNumber}`;
     let query;
-    if(str){
-        query = ebUrl + ebSearch + ebToken + q + sort_by + page + "&" + str;
-    }else{
-        query = ebUrl + ebSearch + ebToken + q + sort_by + page;  
+    if (str) {
+        query = ebUrl + ebSearch + ebToken + q + page + sort_by + "&" + str;
+    } else {
+        query = ebUrl + ebSearch + ebToken + q + page + sort_by;
+        console.log(`query is: ${query}`); 
    };
     $.get(query, showClasses);
 };
@@ -74,6 +71,7 @@ function getClasses() {
 function getLocation(event) {
     event.preventDefault();
     str = $('form').serialize();
+    $('#classes').empty();
     getClasses();
 };
 
@@ -90,6 +88,7 @@ console.log(`window.scrollTop is: ${($(window).scrollTop())}
 $(window).scroll(()=> {
     if(($(window).scrollTop() + $(window).height()) === ($(document).height())){
         pageNumber++;
+        console.log(`pageNumber is now: ${pageNumber}`);
         getClasses();
         console.log(`page has scrolled. 
             Window.scrollTop is: ${($(window).scrollTop())} 
