@@ -36,8 +36,6 @@ let pageNumber = 1;
 let page = `&page=${pageNumber}`;
 let str;
 
-
-
 function showClasses(results) {
     //console.log(results);
     let events = results['events']; // an array of event objects
@@ -58,13 +56,11 @@ function showClasses(results) {
 
 function getClasses() {
     page = `&page=${pageNumber}`;
-    let query;
+    let query = ebUrl + ebSearch + ebToken + q + page + sort_by;
     if (str) {
-        query = ebUrl + ebSearch + ebToken + q + page + sort_by + "&" + str;
-    } else {
-        query = ebUrl + ebSearch + ebToken + q + page + sort_by;
-        console.log(`query is: ${query}`); 
-   };
+        query += "&" + str;
+        };
+    console.log(`query is: ${query}`); 
     $.get(query, showClasses);
 };
 
