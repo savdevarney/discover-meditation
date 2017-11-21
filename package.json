@@ -1,0 +1,28 @@
+{
+  "name": "discover-meditation",
+  "version": "1.0.0",
+  "description": "app to discover meditation classes near you via integrations with eventbrite, meetup, facebook events, etc. Edit",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel src-d lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/savdevarney/discover-meditation.git"
+  },
+  "keywords": [
+    "meditation",
+    "eventbrite"
+  ],
+  "author": "savannah devarney",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/savdevarney/discover-meditation/issues"
+  },
+  "homepage": "https://github.com/savdevarney/discover-meditation#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1"
+  }
+}

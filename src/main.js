@@ -1,34 +1,4 @@
-{% extends 'base.html' %}
-{% block content %}
 
-<h1>Let's find meditation classes near you</h1>
-
-<div>
-<p>Enter Your Location: </p>
-</div>
-
-<div>
-<form action='url'>
-    <input type='text' name='location.address' placeholder='your address'>
-    <select name='location.within'>
-        <option value='5mi'>5 miles</option>
-        <option value='10mi'>10 miles</option>
-        <option value='20mi'>20 miles</option>
-    </select>
-    <input id='location' type='submit' value='show meditations near me'>
-</form>
-</div>
-
-<br>
-<br>
-<br>
-
-<div id='classes'>
-<form action= url
-</form>
-</div>
-
-<script>
 let ebUrl = "https://www.eventbriteapi.com/v3"
 let ebSearch = "/events/search"
 let ebToken = "/?token=QH7DGFM5HFFYPBGZOCZO"
@@ -72,8 +42,15 @@ function getAllClasses() {
 
 getAllClasses();
 
-</script>
-
-{% endblock %}
-
-   
+/* 
+window.onload = function() {
+    let startPos;
+    let geoSuccess = function(position) {
+        startPos = position;
+        document.getElementById('startLat').innerHTML = startPos.coords.lattitude;
+        document.getElementById('startLon').innerHTML = startPos.coords.longitude;
+        console.log(startPos);
+    };
+    navigator.geolocation.getCurrentPosition(geoSuccess);
+};
+*/
