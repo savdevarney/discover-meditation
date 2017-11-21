@@ -37,7 +37,6 @@ let page = `&page=${pageNumber}`;
 let str;
 
 function showClasses(results) {
-    //console.log(results);
     let events = results['events']; // an array of event objects
     let meditations = events.map(function(event) {
         let title = event['name']['text'];
@@ -45,7 +44,7 @@ function showClasses(results) {
         let dateTime = event['start']['local'];
         return `
         <div class='class-tile'>
-            <a href='${url}'> ${title}</a>
+            <a href='${url}' target="_blank"> ${title}</a>
         </div>
         `; 
     });
@@ -68,6 +67,7 @@ function getLocation(event) {
     event.preventDefault();
     str = $('form').serialize();
     $('#classes').empty();
+    pageNumber = 1;
     getClasses();
 };
 
