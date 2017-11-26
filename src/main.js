@@ -1,5 +1,6 @@
 // currently using JS directly in home.html.  Can't yet get this module to load
 
+
 const ebUrl = "https://www.eventbriteapi.com/v3";
 const ebSearch = "/events/search";
 const ebToken = "/?token=QH7DGFM5HFFYPBGZOCZO";
@@ -65,6 +66,9 @@ $(window).scroll(()=> {
             document.height is: ${($(document).height())}`);
         }
 });
+
+
+</script>
 
 
 /* 

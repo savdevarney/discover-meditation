@@ -1,6 +1,11 @@
-{% extends 'base.html' %}
-{% block content %}
+<!doctype html>
+<head>
+<title>Discover Meditation</title>
+<style></style>
+<script src="https://code.jquery.com/jquery.js"></script>
+</head>
 
+<body>
 <h1>Let's find meditation classes near you</h1>
 
 <div>
@@ -40,6 +45,10 @@ const sort_by = "&sort_by=best";
 let pageNumber = 1;
 let page = `&page=${pageNumber}`;
 let str;
+let lat;
+let locationLat = `&location.latitude=${lat}`;
+let lon;
+let locationLon = `&location.longitude=${lon}`;
 
 function showClasses(results) {
     let events = results['events']; // an array of event objects
@@ -63,7 +72,12 @@ function getClasses() {
     let query = ebUrl + ebSearch + ebToken + q + page + sort_by;
     if (str) {
         query += "&" + str;
-        };
+        } else if (lat && lon) {
+        	locationLat = `&location.latitude=${lat}`;
+        	locationLon = `&location.longitude=${lon}`;
+        	query += locationLat;
+        	query += locationLon;
+        }
     console.log(`query is: ${query}`); 
     $.get(query, showClasses);
 };
@@ -78,7 +92,22 @@ function getLocation(event) {
 
 $('#location').on('click', getLocation);
 
+// populate with global classes to start:
+
 getClasses();
+
+// experiments with geolocation
+
+navigator.geolocation.watchPosition((data) => {
+    console.log(data);
+    let coords = data['coords'];
+    lat = coords['latitude'].toString();
+    lon = coords['longitude'].toString();
+	$('#classes').empty();
+    getClasses();
+    }, (err) => {
+      console.error(err);
+    });
 
 // infinite scrolling and paginating
 
@@ -99,8 +128,8 @@ $(window).scroll(()=> {
 });
 
 
+
+
 </script>
-
-{% endblock %}
-
-   
+</body>
+</html>
